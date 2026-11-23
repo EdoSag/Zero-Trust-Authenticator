@@ -11,9 +11,10 @@ import '../otp/otp.dart';
 import '../platform/device_bridge.dart';
 import 'common.dart';
 
-/// Shown instead of the home screen when ZT Keyboard (or another
-/// Zero-Trust app) opened this app for a code: hands back the code of the
-/// account that belongs to the app or site being typed into.
+/// Shown instead of the home screen when this app was opened for a code,
+/// by ZT Keyboard (or another Zero-Trust app) or from Android's autofill
+/// suggestion: hands back the code of the account that belongs to the app
+/// or site being typed into.
 ///
 /// One account already given to that app or site: its code goes back at
 /// once. Otherwise the user picks, with the likely accounts first, and the

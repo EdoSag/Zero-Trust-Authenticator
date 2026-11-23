@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Texts Android itself shows (the autofill suggestion), in the phone's language. -->
+<resources>
+    <string name="autofill_code_title">Code from ZT Authenticator</string>
+</resources>

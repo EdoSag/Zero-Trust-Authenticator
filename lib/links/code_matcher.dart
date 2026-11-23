@@ -6,6 +6,31 @@ import 'service_directory.dart';
 class CodeRequest {
   const CodeRequest({this.package, this.domain, this.appLabel});
 
+  /// The request as the Kotlin side reports it (`pendingCodeRequest`).
+  ///
+  /// A site named by a Zero-Trust app (the keyboard handoff) is believed:
+  /// only apps signed with the suite's key get that far. A site named by
+  /// Android autofill is what the app on screen says it is showing, so it
+  /// is believed from browsers only. Any other app could name a site it
+  /// has nothing to do with to be handed that site's code without the
+  /// wrong-place warning; such an app is treated as itself.
+  factory CodeRequest.fromDevice(Map<Object?, Object?> raw) {
+    String? text(String key) {
+      final v = raw[key];
+      return v is String && v.trim().isNotEmpty ? v.trim() : null;
+    }
+
+    final package = text('package');
+    final fromAutofill = text('source') == 'autofill';
+    return CodeRequest(
+      package: package,
+      domain: fromAutofill && !browsers.contains(package)
+          ? null
+          : text('domain'),
+      appLabel: text('appLabel'),
+    );
+  }
+
   /// The Android app being typed into.
   final String? package;
 

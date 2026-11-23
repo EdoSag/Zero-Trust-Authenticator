@@ -1,7 +1,7 @@
 name: zerotrust_authenticator
 description: "Zero-Trust Authenticator: sign-in codes for your accounts, end-to-end encrypted and typed for you."
 publish_to: none
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ^3.9.0

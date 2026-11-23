@@ -77,3 +77,8 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // The autofill suggestion as the keyboard's suggestion row shows it.
+    implementation("androidx.autofill:autofill:1.3.0")
+}

@@ -5,6 +5,7 @@ WHAT IT DOES
 • Add an account by scanning its QR code, picking a screenshot of it, or typing the key.
 • Move in from Google Authenticator, Aegis, 2FAS, Ente Auth, Bitwarden, andOTP and FreeOTP+, including password-protected Aegis and 2FAS files.
 • Codes typed for you: with ZT Keyboard, tap the code chip on a sign-in screen and the right code is typed. No copying, no switching apps.
+• Or let Android offer the code: turn on autofill in Settings and "Code from ZT Authenticator" appears on code fields in other apps and browsers.
 • A warning before a code goes to the wrong place: if a look-alike site asks for the code of an account saved for another site, you are told first.
 • Keep each service's recovery codes beside its account.
 • An encrypted backup file, locked with a password you pick.

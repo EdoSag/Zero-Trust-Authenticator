@@ -7,7 +7,9 @@ import 'package:zero_trust_core/zero_trust_core.dart';
 import '../app/authenticator_settings.dart';
 import '../data/accounts_store.dart';
 import '../l10n/l10n.dart';
+import '../platform/device_bridge.dart';
 import 'adding.dart';
+import 'common.dart';
 import 'import_page.dart';
 import 'trash_page.dart';
 
@@ -39,7 +41,8 @@ class AuthenticatorSettingsPage extends ConsumerWidget {
   }
 }
 
-/// The Authenticator's own rows: hide codes, clear the clipboard, trash.
+/// The Authenticator's own rows: hide codes, clear the clipboard, codes in
+/// other apps (autofill), trash.
 class AppSettingsRows extends ConsumerWidget {
   const AppSettingsRows({super.key});
 
@@ -99,6 +102,7 @@ class AppSettingsRows extends ConsumerWidget {
           ),
           onTap: () => _pickClipboard(context, ref),
         ),
+        const AutofillSettingRow(),
         ListTile(
           key: const Key('setting-trash'),
           leading: const Icon(Icons.delete_outline),
@@ -109,6 +113,71 @@ class AppSettingsRows extends ConsumerWidget {
           ).push(MaterialPageRoute<void>(builder: (_) => const TrashPage())),
         ),
       ],
+    );
+  }
+}
+
+/// The switch that makes ZT Authenticator the phone's autofill app, so
+/// Android offers a code on fields that ask for one. Android owns the
+/// choice: turning it on opens Android's screen, and the switch shows what
+/// Android says once the app is back in front. Not shown on a phone
+/// without autofill.
+class AutofillSettingRow extends ConsumerStatefulWidget {
+  const AutofillSettingRow({super.key});
+
+  @override
+  ConsumerState<AutofillSettingRow> createState() => _AutofillSettingRowState();
+}
+
+class _AutofillSettingRowState extends ConsumerState<AutofillSettingRow> {
+  AutofillState _state = AutofillState.unsupported;
+  late final AppLifecycleListener _lifecycle;
+
+  @override
+  void initState() {
+    super.initState();
+    // Back from Android's screen: see what was chosen there.
+    _lifecycle = AppLifecycleListener(onResume: _refresh);
+    _refresh();
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
+
+  Future<void> _refresh() async {
+    AutofillState state;
+    try {
+      state = await ref.read(deviceBridgeProvider).autofillState();
+    } on Object {
+      state = AutofillState.unsupported;
+    }
+    if (mounted) setState(() => _state = state);
+  }
+
+  Future<void> _set(bool on) async {
+    final unavailable = context.l10n.autofillUnavailable;
+    try {
+      await ref.read(deviceBridgeProvider).setAutofill(on);
+    } on Object {
+      if (mounted) showSnack(context, unavailable);
+    }
+    await _refresh();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_state.supported) return const SizedBox.shrink();
+    final l = context.l10n;
+    return SwitchListTile(
+      key: const Key('setting-autofill'),
+      secondary: const Icon(Icons.password_outlined),
+      title: Text(l.autofillTitle),
+      subtitle: Text(_state.enabled ? l.autofillOnHint : l.autofillOffHint),
+      value: _state.enabled,
+      onChanged: _set,
     );
   }
 }

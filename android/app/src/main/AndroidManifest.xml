@@ -62,6 +62,41 @@
             </intent-filter>
         </activity>
 
+        <!-- Opened by Android's autofill suggestion "Code from ZT
+             Authenticator": unlock, pick, and the code is filled in. Not
+             exported: only this app's own autofill service leads here. -->
+        <activity
+            android:name=".AutofillCodeActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+        </activity>
+
+        <!-- Autofill for one-time codes, off until the user picks this app
+             as the phone's autofill service (Settings in the app). It only
+             points at code fields; it holds no keys (see
+             CodeAutofillService). -->
+        <service
+            android:name=".CodeAutofillService"
+            android:label="ZT Authenticator"
+            android:exported="true"
+            android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.autofill.AutofillService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.autofill"
+                android:resource="@xml/autofill_service"/>
+        </service>
+
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

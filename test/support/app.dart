@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:zero_trust_core/zero_trust_core.dart';
 import 'package:zerotrust_authenticator/app/authenticator_config.dart';
@@ -99,6 +99,26 @@ class FakeBridge implements DeviceBridge {
   @override
   Future<void> copyPrivately(String text, {Duration? clearAfter}) async {
     copied.add((text, clearAfter));
+  }
+
+  /// What the phone says about autofill; a test changes it to stand in
+  /// for the user's choice on Android's own screen.
+  AutofillState autofill = AutofillState.unsupported;
+
+  /// Every `setAutofill` call.
+  final autofillAsked = <bool>[];
+
+  /// Makes `setAutofill` fail, as on a phone without the settings screen.
+  bool autofillFails = false;
+
+  @override
+  Future<AutofillState> autofillState() async => autofill;
+
+  @override
+  Future<void> setAutofill(bool on) async {
+    if (autofillFails) throw PlatformException(code: 'unavailable');
+    autofillAsked.add(on);
+    if (!on) autofill = const AutofillState(supported: true, enabled: false);
   }
 }
 
