@@ -1,0 +1,36 @@
+Zero-Trust Authenticator makes the 6-digit codes your accounts ask for when you turn on two-step sign-in. Your accounts are encrypted on your phone before they sync, so a lost phone doesn't lock you out, and nobody else, us included, can make your codes.
+
+WHAT IT DOES
+• Works with every service that shows a QR code for an authenticator app: time-based and counter-based codes, and Steam Guard.
+• Add an account by scanning its QR code, picking a screenshot of it, or typing the key.
+• Move in from Google Authenticator, Aegis, 2FAS, Ente Auth, Bitwarden, andOTP and FreeOTP+, including password-protected Aegis and 2FAS files.
+• Codes typed for you: with ZT Keyboard, tap the code chip on a sign-in screen and the right code is typed. No copying, no switching apps.
+• Or let Android offer the code: turn on autofill in Settings and "Code from ZT Authenticator" appears on code fields in other apps and browsers.
+• A warning before a code goes to the wrong place: if a look-alike site asks for the code of an account saved for another site, you are told first.
+• Keep each service's recovery codes beside its account.
+• An encrypted backup file, locked with a password you pick.
+• Groups for work, personal and anything else, with a filter on the main screen.
+• The next code shown early, so you never type one that is about to run out.
+• A clock check that tells you when the phone's time is the reason a code was refused.
+• A Quick Settings tile, a home screen widget and a "Scan QR code" shortcut. None of them shows anything about your accounts.
+• Search, pin your most used accounts, add notes, and a trash that keeps deleted accounts for 30 days.
+
+PRIVATE BY DEFAULT
+• Screenshots and the recent-apps preview are blocked.
+• A copied code is hidden from the clipboard preview and cleared after 30 seconds.
+• Codes can stay hidden until you tap one.
+• Locks after one minute away, and opens with your fingerprint or face.
+• Service logos are never downloaded, so no server learns which services you use.
+
+WHY ZERO-TRUST
+• End-to-end encrypted: everything is encrypted on your phone before it syncs. We can't read it, and neither can anyone who breaks into the server.
+• One private account for every Zero-Trust app.
+• Works offline: codes never need the internet.
+• No ads, no trackers, no analytics, no data sold. Ever.
+• Open source (AGPL-3.0), so anyone can check what the app does.
+• English and Hebrew, with full right-to-left support.
+
+Part of the Zero-Trust suite: Notes, Tasks, Calendar, Contacts, Phone, Fitness, Meds, Time, Browser, Keyboard and more. One account opens them all.
+
+Privacy policy: https://zerotrust.bz/privacy/
+Support: support@zerotrust.bz

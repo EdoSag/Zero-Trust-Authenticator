@@ -1,0 +1,323 @@
+{
+  "@@locale": "en",
+  "appTitle": "ZT Authenticator",
+  "accountHint": "you@example.com",
+  "accountLabel": "Account",
+  "add": "Add",
+  "addAccount": "Add account",
+  "addFromLinkTitle": "Add this account?",
+  "addFromLinkOne": "A link asked to add {name} to ZT Authenticator. Add it only if you opened the link yourself just now.",
+  "@addFromLinkOne": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addFromLinkMany": "A link asked to add {count} accounts to ZT Authenticator. Add them only if you opened the link yourself just now.",
+  "@addFromLinkMany": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addedOne": "Added {name}",
+  "@addedOne": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "addedMany": "Added {count} accounts",
+  "@addedMany": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addedSomeSkipped": "Added {added}. {skipped} were already here.",
+  "@addedSomeSkipped": {
+    "placeholders": {
+      "added": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      }
+    }
+  },
+  "advanced": "Advanced",
+  "advancedHint": "Only if the service gave you other settings",
+  "afterSeconds": "After {n} seconds",
+  "@afterSeconds": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "algorithm": "Algorithm",
+  "alreadyHere": "This account is already here",
+  "badKey": "This key can't make codes",
+  "cameraRefused": "The camera isn't allowed. Allow it in the phone's settings, or pick a picture instead.",
+  "cancel": "Cancel",
+  "clearClipboard": "Clear a copied code",
+  "closeSearch": "Close search",
+  "codeKind": "Kind of code",
+  "continueLabel": "Continue",
+  "copied": "Code copied",
+  "copiedClears": "Code copied. It clears in {n} seconds.",
+  "@copiedClears": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "couldNotLoad": "Your accounts couldn't be opened. Close the app and try again.",
+  "couldNotSave": "That couldn't be saved. Try again.",
+  "counter": "Counter",
+  "daysLeft": "{n, plural, =0{Deleted today} =1{Deleted in 1 day} other{Deleted in {n} days}}",
+  "@daysLeft": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteForever": "Delete forever",
+  "deleteForeverTitle": "Delete {name} forever?",
+  "@deleteForeverTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteForeverBody": "Its codes are gone for good, on all your devices. If the service still asks for a code, turn off two-step sign-in there first, or keep its recovery codes.",
+  "digits": "Digits",
+  "editAccount": "Edit account",
+  "emptyTitle": "No accounts yet",
+  "emptyBody": "Turn on two-step sign-in at a service, then scan the QR code it shows. Your codes are encrypted on this phone before they sync, so only you can read them.",
+  "exportTitle": "Encrypted backup file",
+  "exportHint": "Every account in one file, locked with a password you pick",
+  "exportBody": "Pick a password for the file, at least 8 characters. Without it the file can't be opened, and nobody can reset it.",
+  "exportDone": "Backup saved",
+  "exportFailed": "The backup couldn't be saved",
+  "filePasswordTitle": "This file is locked",
+  "filePasswordBody": "Type the password it was saved with.",
+  "hideCodes": "Hide codes until tapped",
+  "hideCodesHint": "Codes show as dots. Tap an account to see and copy its code.",
+  "howToExport": "How to get your accounts out of another app",
+  "howGoogle": "Menu, Transfer accounts, Export accounts. Scan each QR code it shows, or pick a screenshot of it.",
+  "howAegis": "Settings, Import & Export, Export, Aegis (.json). Encrypted exports work too.",
+  "howTwoFas": "Settings, 2FAS Backup, Export. Files with a password work too.",
+  "howEnte": "Settings, Data, Export codes, Plain text.",
+  "howBitwarden": "Tools, Export vault, .json (not encrypted). Only the items with a code are added.",
+  "howOthers": "Export as a plain JSON file.",
+  "importTitle": "Import from another app",
+  "importHint": "Google Authenticator, Aegis, 2FAS, Ente Auth, Bitwarden and more",
+  "importIntro": "Bring your accounts over. Nothing is uploaded: files and pictures are read on this phone.",
+  "importFile": "Choose a backup file",
+  "importFileHint": "From ZT Authenticator, Aegis, 2FAS, Ente Auth, Bitwarden, andOTP or FreeOTP+",
+  "importScanHint": "A service's setup code, or Google Authenticator's export codes",
+  "keyLabel": "Key",
+  "keyHelp": "The letters and digits the service shows under \"Can't scan the code?\" or \"Enter a setup key\".",
+  "keyInvalid": "A key has only the letters A to Z and the digits 2 to 7",
+  "kindTime": "Time based (most services)",
+  "kindCounter": "Counter based",
+  "kindSteam": "Steam",
+  "mismatchTitle": "This doesn't look right",
+  "mismatchBodySite": "{account} is saved for {home}, but the code was asked for by {target}. A fake page that asks for your code is how accounts get stolen. Send it only if you're sure.",
+  "@mismatchBodySite": {
+    "placeholders": {
+      "account": {
+        "type": "String"
+      },
+      "home": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "mismatchBodyApp": "You haven't used {account} in {target} before, and it isn't the app that normally asks for it. A fake screen that asks for your code is how accounts get stolen. Send it only if you're sure.",
+  "@mismatchBodyApp": {
+    "placeholders": {
+      "account": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "mismatchSendAnyway": "Send anyway",
+  "moveToTrash": "Move to trash",
+  "movedToTrash": "{name} moved to trash",
+  "@movedToTrash": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "never": "Never",
+  "nextCode": "Next code",
+  "noQrInPicture": "No QR code found in that picture",
+  "notAccountQr": "That isn't an account code",
+  "note": "Note",
+  "nothingFound": "Nothing found",
+  "nothingToAdd": "There were no accounts in there",
+  "password": "Password",
+  "passwordAgain": "Password again",
+  "passwordRequired": "Type the password",
+  "passwordTooShort": "At least 8 characters",
+  "passwordsDiffer": "The two don't match",
+  "pasteLinks": "Paste links",
+  "pasteLinksHint": "otpauth://totp/…",
+  "pasteLinksSubtitle": "Lines that start with otpauth://",
+  "periodInvalid": "Between 5 and 3600 seconds",
+  "periodSeconds": "A new code every (seconds)",
+  "pickLikely": "For {target}",
+  "@pickLikely": {
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "pickNoAccounts": "There are no accounts yet. Open ZT Authenticator and add one first.",
+  "pickOthers": "All accounts",
+  "pickPicture": "Pick a picture of a QR code",
+  "pickPictureHint": "A screenshot or a photo, read on this phone",
+  "pickTitle": "Which code?",
+  "pickTitleFor": "Code for {target}",
+  "@pickTitleFor": {
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "pin": "Pin to top",
+  "pinned": "Pinned",
+  "qrWarning": "Anyone who scans or photographs this can make this account's codes. Show it only to move the account to a device of your own.",
+  "recoveryCodes": "Recovery codes",
+  "recoveryCodesHelp": "The one-time codes the service gave you for when you lose this phone, one per line. Encrypted with the account.",
+  "rememberFor": "Remember my choice for {target}",
+  "@rememberFor": {
+    "placeholders": {
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "restore": "Put back",
+  "save": "Save",
+  "scanHint": "Point the camera at the QR code the service shows",
+  "scanQr": "Scan a QR code",
+  "scanQrHint": "The code a service shows when you turn on two-step sign-in",
+  "search": "Search",
+  "sendingCode": "Sending the code for {name}",
+  "@sendingCode": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "serviceHint": "GitHub",
+  "serviceLabel": "Service",
+  "serviceRequired": "Type the service or the account",
+  "settings": "Settings",
+  "showQr": "Show as QR code",
+  "trash": "Trash",
+  "trashCount": "{n, plural, =1{1 account} other{{n} accounts}}",
+  "@trashCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "trashEmpty": "The trash is empty",
+  "trashHint": "Accounts stay here for 30 days, then they are deleted for good.",
+  "typeKey": "Type the key",
+  "typeKeyHint": "When there is no QR code to scan",
+  "undo": "Undo",
+  "unknownFile": "This isn't a file ZT Authenticator knows",
+  "unnamedAccount": "an account",
+  "unpin": "Unpin",
+  "unreadableFile": "The file is damaged or can't be read",
+  "usedIn": "Where its code goes without asking",
+  "usedInHelp": "Apps and sites you gave this code to from ZT Keyboard or autofill. Remove one to be asked again there.",
+  "wrongPassword": "Wrong password",
+  "autofillTitle": "Offer codes in other apps and browsers",
+  "autofillOffHint": "Android shows \"Code from ZT Authenticator\" on a field that asks for a sign-in code. Android lets one app fill in fields at a time, so while this is on your password manager no longer fills in passwords.",
+  "autofillOnHint": "On: ZT Authenticator is this phone's autofill app. To have your password manager fill in passwords again, choose it as the autofill app in Android's settings.",
+  "autofillUnavailable": "This phone doesn't let apps fill in fields",
+  "groups": "Groups",
+  "groupsHint": "Keep work, personal and other accounts apart",
+  "groupsCount": "{n, plural, =1{1 group} other{{n} groups}}",
+  "@groupsCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "groupsEmpty": "No groups yet. Add one, then press and hold an account to move it in.",
+  "newGroup": "New group",
+  "groupName": "Group name",
+  "renameGroup": "Rename",
+  "deleteGroup": "Delete group",
+  "deleteGroupTitle": "Delete {name}?",
+  "@deleteGroupTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteGroupBody": "Its accounts stay in ZT Authenticator, without a group.",
+  "groupAccounts": "{n, plural, =0{No accounts} =1{1 account} other{{n} accounts}}",
+  "@groupAccounts": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "allAccounts": "All",
+  "moveToGroup": "Move to group",
+  "noGroup": "No group",
+  "groupEmpty": "No accounts in this group yet",
+  "editGroups": "Edit groups",
+  "groupNameTaken": "There is already a group with this name",
+  "nextCodeIs": "Next: {code}",
+  "@nextCodeIs": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "checkClock": "Check this phone's clock",
+  "checkClockHint": "Codes depend on the time. When the clock is off, services refuse them.",
+  "clockRight": "The clock is right",
+  "clockOff": "This phone's clock is {seconds} seconds off, so services may refuse your codes. Turn on automatic date and time in Android's settings.",
+  "@clockOff": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "clockUnknown": "Couldn't check the clock. Check your connection and try again.",
+  "ok": "OK"
+}

@@ -1,0 +1,49 @@
+{
+ "aegis": {
+  "version": 1,
+  "header": {
+   "slots": [
+    {
+     "type": 2,
+     "uuid": "b",
+     "key": "00",
+     "key_params": {
+      "nonce": "00",
+      "tag": "00"
+     }
+    },
+    {
+     "type": 1,
+     "uuid": "a",
+     "key": "64dfbe04aa9b7d8f54554443a4f714ff35590241769d3ed60c13b78834936a82",
+     "key_params": {
+      "nonce": "574c1a00bf0d972e26cf9433",
+      "tag": "fc52936cca3c39212e91877d8d0e5622"
+     },
+     "n": 4096,
+     "r": 8,
+     "p": 1,
+     "salt": "d4cabb7161267bacc706928d80027367ad507c42caf4dad187b009f5cd2e7204",
+     "repaired": true,
+     "is_backup": false
+    }
+   ],
+   "params": {
+    "nonce": "7451e0a8ae3849c170e7c545",
+    "tag": "9b1e4fa3867801feb2566a6fbab487b6"
+   }
+  },
+  "db": "k2+s+NjILgfxGND64/1u4AcvXheFwD0vmRt3A/yZtmhOWjsDgT4a3NQ3R8TfAl0p9Tz4usv7DmuBlMjDoPd0+5hg9Jd4grvhhWJOcnhryj1gMU1VA5gjnlDXyy4xI97saF6qRfUHdzVF2mGLMyBO6gA351LvXpviLgGdblIvM/KnGOO3rm6YlNnmrw572lQUs11cto4gwpQL4bhHtSy3Gj2I+83UP8eZZtm5b6c7ohf6XYGuAeOAPDI2DEg+bY+F1ghXI8sRT+ilQHX8uvMWouT2ebrOvV1n16Tv5sowwgBapIaqu2dN+88M3sYIC3lMOtc7717lDMG66mQfVgW3aJldTRLJxLXBRC6mJVyvSSb+vmns6/nyATRxDJZ3/0mogFfNMAgCio/4WNqbpoRt1HLxGgySYjQVw+jvKp0VM+HpDIQBDDwbLSak/bxsVc5XUFqUpKMWZ54hP8h6fFK3i9cGM2UIFxRitZjy0kSF1G15mSNl5IZbgmVQ/xM325vTSwLjBpFSjPqRMjjONFkX4Cej5JbaQWMWxex740mvTvB5zHRM7rMxmMnVHPHs9kmGM+HAjxEuX7MRnrKNRvPTHF8dAxctNjoUZ3QyuY9Tw7u46W7oa06ySNewDCjtaSgGHH8JGHj55L41JezK6jl21DE0przlWfuRRcBsbdUQPw=="
+ },
+ "twoFas": {
+  "services": [],
+  "groups": [],
+  "updatedAt": 1,
+  "schemaVersion": 4,
+  "appVersionCode": 5000012,
+  "appVersionName": "5.0.12",
+  "appOrigin": "android",
+  "servicesEncrypted": "x2lcLDlu8VABsosWzIoJG21XD1ygEGRlXcLFgHS4AkcZaZcyAwCXKwsa6pUMHXhkylltWU+0Q5io8RHZ1xaviVI1B1LLmV/lIPWDcyXR4LVcs1ByjakwEuU/1VnhRLhVRri46kRGMnzvtNiAgZIy0+HICzT8kIr/+Kx4fLxjkwS/6hEXrHXlDiWxYVnYbkypmAj7L8YNEoHnth/p56VRHHaBmRUBG2x81sb/ILwn/6WxgvlP7vyDJJqsKN1C9oyGPNHRDuHN5LvQZdiyeFdQ5UtCwmXXG7VrBeFNPhmPXGvC3gFHI+H2S0kNgWR0Y1Wj47BQJo4fFMkobpv4IzSVXXHGemQTLoNkpcy1i0DKjRap/KevZYS52+sXErr/+NGNGjgO24rBRCnSKWr8MTh9a/m2epFyKs0EUf0FgVbu/5CBtXQaRduWIC9wNtWNQ6S/+b8RqDweyTxTtSfawdpj:1fvRMkHIjZ4eHYHEY7G+qjXvzV6PwXTcljF4Xv+xeawuq/Xob99adx2ZQ6SEWlPp27ikeWPDCtuViIYXXbju285FO6i+A/dtDafKZza0PY99Qb2KpfAi+A5XWWftPZFwfgttL5i/+7ApMAiNqACwsCdU9EZQ2byMfM7p0ZRMjeH/xKt5NA89xKO/aRyF5QNXCYF/dqTbzxGrV9rxztKRzQ1ad1pxAsue+UQFljZYg4RrALKFu7ZrQFXNpTPpDNFeC0/vOTYwpv3SOe2JXyz6S4rbdw4zJd97oDtZwbsnb6T5veYVIluqaFlnxTkQ9snKEdL4WhIMSQM4ogUIjyCwkw==:qDHzsTRX0izJX409",
+  "reference": "x"
+ }
+}

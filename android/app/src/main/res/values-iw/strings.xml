@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="autofill_code_title">קוד מ-ZT Authenticator</string>
+    <string name="widget_codes_title">הקודים שלך</string>
+    <string name="widget_codes_caption">מוצגים אחרי פתיחת הנעילה</string>
+    <string name="widget_codes_open">פתיחת הקודים</string>
+    <string name="widget_codes_scan">סריקת קוד QR</string>
+    <string name="widget_codes_description">פותח את הקודים, או את הסורק להוספת חשבון. שום דבר על החשבונות שלך לא מוצג במסך הבית.</string>
+    <string name="shortcut_scan_short">סריקת קוד QR</string>
+    <string name="shortcut_scan_long">סריקת קוד QR להוספת חשבון</string>
+</resources>

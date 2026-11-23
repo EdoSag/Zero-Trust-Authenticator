@@ -1,0 +1,152 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sign-in and sync with the shared Zero-Trust account. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <!-- Scanning a service's QR code. Asked for when the scanner opens;
+         picking a picture or typing the key works without it. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
+    <application
+        android:supportsRtl="true"
+        android:label="ZT Authenticator"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <!-- Links are handled by the app's own code (app_links, see
+                 IncomingLinks), not Flutter's router: AppGate has no route
+                 for them. -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="false"/>
+            <!-- Password-reset emails: https://zerotrust.bz/auth/authenticator/?code=… -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https" android:host="zerotrust.bz" android:pathPrefix="/auth/authenticator/"/>
+            </intent-filter>
+            <!-- "Open in authenticator app" links and buttons, and Google
+                 Authenticator's export links. Any app or page can send one,
+                 so the app always asks before adding (see HomePage). -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="otpauth"/>
+                <data android:scheme="otpauth-migration"/>
+            </intent-filter>
+            <!-- ZT Keyboard's code chip: the keyboard opens this app to get
+                 the code for the field being typed in. MainActivity only
+                 answers a caller signed with this app's own key (see
+                 CodePick). -->
+            <intent-filter>
+                <action android:name="bz.zerotrust.action.PICK_TEXT"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="bz.zerotrust.category.ONE_TIME_CODE"/>
+            </intent-filter>
+            <!-- Press and hold the app's icon: "Scan QR code". -->
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
+        </activity>
+
+        <!-- Opened by Android's autofill suggestion "Code from ZT
+             Authenticator": unlock, pick, and the code is filled in. Not
+             exported: only this app's own autofill service leads here. -->
+        <activity
+            android:name=".AutofillCodeActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+        </activity>
+
+        <!-- Autofill for one-time codes, off until the user picks this app
+             as the phone's autofill service (Settings in the app). It only
+             points at code fields; it holds no keys (see
+             CodeAutofillService). -->
+        <service
+            android:name=".CodeAutofillService"
+            android:label="ZT Authenticator"
+            android:exported="true"
+            android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.autofill.AutofillService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.autofill"
+                android:resource="@xml/autofill_service"/>
+        </service>
+
+        <!-- The Quick Settings tile: opens the app from any screen. -->
+        <service
+            android:name=".CodesTileService"
+            android:label="ZT Authenticator"
+            android:icon="@drawable/ic_authenticator_codes"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <!-- The home screen widget: opens the codes or the QR scanner. It
+             shows nothing about the accounts. Exported so the launcher can
+             ask it to draw; its buttons open this app's own screen. -->
+        <receiver
+            android:name=".CodesWidget"
+            android:label="ZT Authenticator"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_codes_info"/>
+        </receiver>
+
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <queries>
+        <!-- Lets the code picker say "Code for <app name>" instead of
+             showing a package name: apps with a launcher icon are visible,
+             only to read the name of the one a code was asked for. -->
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="https"/>
+        </intent>
+    </queries>
+</manifest>
