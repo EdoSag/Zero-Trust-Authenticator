@@ -1,7 +1,7 @@
 name: zerotrust_authenticator
 description: "Zero-Trust Authenticator: sign-in codes for your accounts, end-to-end encrypted and typed for you."
 publish_to: none
-version: 0.3.0+3
+version: 0.3.1+4
 
 environment:
   sdk: ^3.9.0
@@ -25,7 +25,9 @@ dependencies:
     git:
       url: https://github.com/EdoSag/Zero-Trust-Core.git
       path: packages/zero_trust_core
-      ref: fcb9e1796e03497d6477f559c132b60608741fa1
+      # Includes Core PR #89 and #90: an import or a large sync no longer
+      # freezes the app.
+      ref: cbea78e579d5439ae99abdaaea2a74cac341e26c
   flutter_riverpod: ^3.5.0
   supabase_flutter: ^2.9.0
   # Reset links from account emails (EmailLinks).
@@ -59,7 +61,7 @@ dev_dependencies:
     git:
       url: https://github.com/EdoSag/Zero-Trust-Core.git
       path: packages/zt_release_checks
-      ref: fcb9e1796e03497d6477f559c132b60608741fa1
+      ref: cbea78e579d5439ae99abdaaea2a74cac341e26c
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
