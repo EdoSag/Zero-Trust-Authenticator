@@ -213,6 +213,9 @@ class AccountGroup {
   final String name;
   final int order;
 
+  AccountGroup copyWith({String? name, int? order}) =>
+      AccountGroup(id: id, name: name ?? this.name, order: order ?? this.order);
+
   Map<String, Object?> toJson() => {'name': name, 'order': order};
 
   static AccountGroup fromJson(String id, Map<String, Object?> json) =>

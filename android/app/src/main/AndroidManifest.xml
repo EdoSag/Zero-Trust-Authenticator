@@ -60,6 +60,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="bz.zerotrust.category.ONE_TIME_CODE"/>
             </intent-filter>
+            <!-- Press and hold the app's icon: "Scan QR code". -->
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
         </activity>
 
         <!-- Opened by Android's autofill suggestion "Code from ZT
@@ -96,6 +98,33 @@
                 android:name="android.autofill"
                 android:resource="@xml/autofill_service"/>
         </service>
+
+        <!-- The Quick Settings tile: opens the app from any screen. -->
+        <service
+            android:name=".CodesTileService"
+            android:label="ZT Authenticator"
+            android:icon="@drawable/ic_authenticator_codes"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <!-- The home screen widget: opens the codes or the QR scanner. It
+             shows nothing about the accounts. Exported so the launcher can
+             ask it to draw; its buttons open this app's own screen. -->
+        <receiver
+            android:name=".CodesWidget"
+            android:label="ZT Authenticator"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_codes_info"/>
+        </receiver>
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

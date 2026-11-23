@@ -37,6 +37,10 @@ abstract class DeviceBridge {
   /// phone's autofill app (nothing changes until they do). Off: stops
   /// being it. Ask [autofillState] again when the app is back in front.
   Future<void> setAutofill(bool on);
+
+  /// What the app was opened to do, from the home screen widget or the
+  /// launcher shortcut: `scan` for the QR scanner, or null. Given once.
+  Future<String?> takeStartAction();
 }
 
 class MethodChannelDeviceBridge implements DeviceBridge {
@@ -94,6 +98,15 @@ class MethodChannelDeviceBridge implements DeviceBridge {
   @override
   Future<void> setAutofill(bool on) =>
       _channel.invokeMethod<void>('setAutofill', {'on': on});
+
+  @override
+  Future<String?> takeStartAction() async {
+    try {
+      return await _channel.invokeMethod<String>('takeStartAction');
+    } on MissingPluginException {
+      return null;
+    }
+  }
 }
 
 final deviceBridgeProvider = Provider<DeviceBridge>(

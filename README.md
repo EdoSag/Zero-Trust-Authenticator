@@ -29,6 +29,20 @@ apps, built on [Zero-Trust-Core](https://github.com/EdoSag/Zero-Trust-Core).
   blocked, a copied code is marked sensitive and cleared after 30 seconds
   (15, 60 or never), codes can be hidden until tapped, and the app locks
   after one minute away.
+- **Groups:** put accounts in groups ("Work", "Games") from an account's
+  menu, filter the list by group, and rename, reorder or delete groups in
+  Settings. Deleting a group keeps its accounts.
+- **Next code:** in a code's last five seconds the one that follows is
+  shown under it.
+- **Clock check** (Settings): codes are made from the time, so a phone
+  whose clock is off makes codes that services refuse. The check compares
+  the phone's clock with the Zero-Trust server's and says by how much it
+  is off.
+- **Quick ways in** (Android): a Quick Settings tile that opens the app
+  from any screen, a home screen widget (open the codes, or the scanner),
+  and "Scan QR code" when you press and hold the app's icon. None of them
+  shows a code, an account or how many there are: codes show in the app,
+  after unlocking.
 - Search, pin to top, notes, the service's recovery codes kept beside the
   account, a trash that keeps deleted accounts for 30 days, show an account
   as a QR code to move it to another device.

@@ -260,5 +260,64 @@
   "autofillTitle": "Offer codes in other apps and browsers",
   "autofillOffHint": "Android shows \"Code from ZT Authenticator\" on a field that asks for a sign-in code. Android lets one app fill in fields at a time, so while this is on your password manager no longer fills in passwords.",
   "autofillOnHint": "On: ZT Authenticator is this phone's autofill app. To have your password manager fill in passwords again, choose it as the autofill app in Android's settings.",
-  "autofillUnavailable": "This phone doesn't let apps fill in fields"
+  "autofillUnavailable": "This phone doesn't let apps fill in fields",
+  "groups": "Groups",
+  "groupsHint": "Keep work, personal and other accounts apart",
+  "groupsCount": "{n, plural, =1{1 group} other{{n} groups}}",
+  "@groupsCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "groupsEmpty": "No groups yet. Add one, then press and hold an account to move it in.",
+  "newGroup": "New group",
+  "groupName": "Group name",
+  "renameGroup": "Rename",
+  "deleteGroup": "Delete group",
+  "deleteGroupTitle": "Delete {name}?",
+  "@deleteGroupTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteGroupBody": "Its accounts stay in ZT Authenticator, without a group.",
+  "groupAccounts": "{n, plural, =0{No accounts} =1{1 account} other{{n} accounts}}",
+  "@groupAccounts": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "allAccounts": "All",
+  "moveToGroup": "Move to group",
+  "noGroup": "No group",
+  "groupEmpty": "No accounts in this group yet",
+  "editGroups": "Edit groups",
+  "groupNameTaken": "There is already a group with this name",
+  "nextCodeIs": "Next: {code}",
+  "@nextCodeIs": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "checkClock": "Check this phone's clock",
+  "checkClockHint": "Codes depend on the time. When the clock is off, services refuse them.",
+  "clockRight": "The clock is right",
+  "clockOff": "This phone's clock is {seconds} seconds off, so services may refuse your codes. Turn on automatic date and time in Android's settings.",
+  "@clockOff": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "clockUnknown": "Couldn't check the clock. Check your connection and try again.",
+  "ok": "OK"
 }
