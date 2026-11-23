@@ -317,4 +317,30 @@ void main() {
     await sent(tester);
     expect(bridge.answers, hasLength(1));
   });
+
+  testWidgets('locked while waiting for the next code: nothing is sent', (
+    tester,
+  ) async {
+    final quick = github.copyWith(period: 2, domains: const ['github.com']);
+    await tester.pumpWidget(
+      app(
+        const PickCodePage(request: onGithub),
+        accounts: [quick],
+        request: onGithub,
+      ),
+    );
+    await tester.pump();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('Sending the code for GitHub'), findsOneWidget);
+    // The app locks: the picker is taken off the screen, as the unlock
+    // screen does.
+    final request = bridge.request;
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 3));
+    await sent(tester);
+    expect(bridge.answers, isEmpty);
+    // Still waiting, so it is asked again after unlocking.
+    expect(bridge.request, same(request));
+  });
 }

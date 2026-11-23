@@ -64,6 +64,10 @@ class _PickCodePageState extends ConsumerState<PickCodePage> {
         await Future<void>.delayed(
           until.difference(now) + const Duration(milliseconds: 50),
         );
+        // The app locked (or the screen was closed) while waiting: this
+        // screen is gone and nothing goes out. The request stays open, so
+        // the code is offered again once the app is unlocked.
+        if (!mounted) return;
         now = DateTime.now();
       }
       final code = account.codeAt(now);
