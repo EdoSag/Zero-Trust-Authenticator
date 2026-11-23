@@ -57,6 +57,19 @@ Future<void> sent(WidgetTester tester) async {
   }
 }
 
+/// The picker reads the real clock, and the tests of a two-second code pump
+/// 100 ms before they look. Picked in the last moments of its two seconds,
+/// the code would be followed by the next one inside those 100 ms and the
+/// test would see a code already sent. So they start in the first half of a
+/// period, where the wait for the next code is a second or more.
+Future<void> earlyInATwoSecondPeriod(WidgetTester tester) =>
+    tester.runAsync(() async {
+      final into = DateTime.now().millisecondsSinceEpoch % 2000;
+      if (into > 1000) {
+        await Future<void>.delayed(Duration(milliseconds: 2020 - into));
+      }
+    });
+
 void main() {
   testWidgets('opened for a code: the picker; opened normally: the list', (
     tester,
@@ -299,6 +312,7 @@ void main() {
     tester,
   ) async {
     // A two-second code is always inside its last three seconds.
+    await earlyInATwoSecondPeriod(tester);
     final quick = github.copyWith(period: 2, domains: const ['github.com']);
     await tester.pumpWidget(
       app(
@@ -321,6 +335,7 @@ void main() {
   testWidgets('locked while waiting for the next code: nothing is sent', (
     tester,
   ) async {
+    await earlyInATwoSecondPeriod(tester);
     final quick = github.copyWith(period: 2, domains: const ['github.com']);
     await tester.pumpWidget(
       app(
