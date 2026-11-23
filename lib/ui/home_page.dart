@@ -50,29 +50,35 @@ class _HomePageState extends ConsumerState<HomePage> {
     if (_askingAboutLink || !mounted) return;
     _askingAboutLink = true;
     try {
-      for (final link in IncomingLinks.takeAccountLinks()) {
-        if (!mounted) return;
-        final l = context.l10n;
-        final List<Account> accounts;
-        try {
-          accounts = OtpAuth.parse(link);
-        } on FormatException {
-          showSnack(context, l.notAccountQr);
-          continue;
+      // Taken again after each batch: a link that arrives while a question
+      // is on screen waits its turn instead of being left behind.
+      while (mounted) {
+        final links = IncomingLinks.takeAccountLinks();
+        if (links.isEmpty) break;
+        for (final link in links) {
+          if (!mounted) return;
+          final l = context.l10n;
+          final List<Account> accounts;
+          try {
+            accounts = OtpAuth.parse(link);
+          } on FormatException {
+            showSnack(context, l.notAccountQr);
+            continue;
+          }
+          final ok = await confirm(
+            context,
+            title: l.addFromLinkTitle,
+            body: accounts.length == 1
+                ? l.addFromLinkOne(
+                    accounts.single.title.isEmpty
+                        ? l.unnamedAccount
+                        : accounts.single.title,
+                  )
+                : l.addFromLinkMany(accounts.length),
+            action: l.add,
+          );
+          if (ok && mounted) await addAccounts(context, ref, accounts);
         }
-        final ok = await confirm(
-          context,
-          title: l.addFromLinkTitle,
-          body: accounts.length == 1
-              ? l.addFromLinkOne(
-                  accounts.single.title.isEmpty
-                      ? l.unnamedAccount
-                      : accounts.single.title,
-                )
-              : l.addFromLinkMany(accounts.length),
-          action: l.add,
-        );
-        if (ok && mounted) await addAccounts(context, ref, accounts);
       }
     } finally {
       _askingAboutLink = false;
