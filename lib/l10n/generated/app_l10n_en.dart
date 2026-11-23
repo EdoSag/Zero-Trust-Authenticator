@@ -451,8 +451,23 @@ class AppL10nEn extends AppL10n {
 
   @override
   String get usedInHelp =>
-      'Apps and sites you gave this code to through ZT Keyboard. Remove one to be asked again there.';
+      'Apps and sites you gave this code to from ZT Keyboard or autofill. Remove one to be asked again there.';
 
   @override
   String get wrongPassword => 'Wrong password';
+
+  @override
+  String get autofillTitle => 'Offer codes in other apps and browsers';
+
+  @override
+  String get autofillOffHint =>
+      'Android shows \"Code from ZT Authenticator\" on a field that asks for a sign-in code. Android lets one app fill in fields at a time, so while this is on your password manager no longer fills in passwords.';
+
+  @override
+  String get autofillOnHint =>
+      'On: ZT Authenticator is this phone\'s autofill app. To have your password manager fill in passwords again, choose it as the autofill app in Android\'s settings.';
+
+  @override
+  String get autofillUnavailable =>
+      'This phone doesn\'t let apps fill in fields';
 }

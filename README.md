@@ -66,6 +66,31 @@ apps, built on [Zero-Trust-Core](https://github.com/EdoSag/Zero-Trust-Core).
 - A browser without a site says nothing about where the code goes, so a
   pick made there is not remembered.
 
+## Entering codes (Android autofill)
+
+Optional, off until turned on in Settings ("Offer codes in other apps and
+browsers"), which opens Android's own screen for choosing the autofill app.
+
+- `CodeAutofillService` looks for a field that asks for a one-time code
+  (`CodeFields.kt`: the page's or app's own hint such as
+  `autocomplete="one-time-code"`, or a field name that says so) and offers
+  one suggestion, "Code from ZT Authenticator", under the field or in the
+  keyboard's suggestion row. It holds no keys and makes no codes.
+- Tapping it opens `AutofillCodeActivity` (not exported): unlock as usual,
+  pick the account (or the one already given to that site answers on its
+  own), and Android fills the code in. Split boxes get one character each.
+- In a browser the browser names the site, so a pick is remembered for the
+  site and the wrong-place warning works there. A site named by any other
+  app is not believed (`CodeRequest.fromDevice`); that app is treated as
+  itself.
+- Android lets one app be the autofill app. While it is ZT Authenticator, a
+  password manager no longer fills in passwords through autofill. The
+  keyboard chip above has no such cost.
+- Chrome and Vanadium only ask the phone's autofill app when their own
+  setting allows it: Settings, Autofill services (or Passwords and
+  autofill), "Autofill using another service".
+- It fills codes only and never saves anything from other apps.
+
 ## Build
 
 ```bash

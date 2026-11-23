@@ -448,8 +448,22 @@ class AppL10nHe extends AppL10n {
 
   @override
   String get usedInHelp =>
-      'אפליקציות ואתרים שקיבלו את הקוד הזה דרך ZT Keyboard. הסרה של אחד מהם תגרום לשאלה חוזרת שם.';
+      'אפליקציות ואתרים שקיבלו את הקוד הזה מ-ZT Keyboard או ממילוי אוטומטי. הסרה של אחד מהם תגרום לשאלה חוזרת שם.';
 
   @override
   String get wrongPassword => 'סיסמה שגויה';
+
+  @override
+  String get autofillTitle => 'הצעת קודים באפליקציות ובדפדפנים אחרים';
+
+  @override
+  String get autofillOffHint =>
+      'Android מציג \"קוד מ-ZT Authenticator\" בשדה שמבקש קוד כניסה. Android מאפשר רק לאפליקציה אחת למלא שדות, ולכן כשזה פועל מנהל הסיסמאות שלך לא ימלא סיסמאות.';
+
+  @override
+  String get autofillOnHint =>
+      'פועל: ZT Authenticator היא אפליקציית המילוי האוטומטי בטלפון הזה. כדי שמנהל הסיסמאות ימלא שוב סיסמאות, יש לבחור בו כאפליקציית המילוי האוטומטי בהגדרות Android.';
+
+  @override
+  String get autofillUnavailable => 'הטלפון הזה לא מאפשר לאפליקציות למלא שדות';
 }

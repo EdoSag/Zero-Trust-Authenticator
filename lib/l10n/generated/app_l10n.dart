@@ -844,7 +844,7 @@ abstract class AppL10n {
   /// No description provided for @usedInHelp.
   ///
   /// In en, this message translates to:
-  /// **'Apps and sites you gave this code to through ZT Keyboard. Remove one to be asked again there.'**
+  /// **'Apps and sites you gave this code to from ZT Keyboard or autofill. Remove one to be asked again there.'**
   String get usedInHelp;
 
   /// No description provided for @wrongPassword.
@@ -852,6 +852,30 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'Wrong password'**
   String get wrongPassword;
+
+  /// No description provided for @autofillTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer codes in other apps and browsers'**
+  String get autofillTitle;
+
+  /// No description provided for @autofillOffHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Android shows \"Code from ZT Authenticator\" on a field that asks for a sign-in code. Android lets one app fill in fields at a time, so while this is on your password manager no longer fills in passwords.'**
+  String get autofillOffHint;
+
+  /// No description provided for @autofillOnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On: ZT Authenticator is this phone\'s autofill app. To have your password manager fill in passwords again, choose it as the autofill app in Android\'s settings.'**
+  String get autofillOnHint;
+
+  /// No description provided for @autofillUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone doesn\'t let apps fill in fields'**
+  String get autofillUnavailable;
 }
 
 class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {

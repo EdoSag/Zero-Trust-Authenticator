@@ -58,13 +58,15 @@ object CodePick {
         val forPackage = intent.getStringExtra(EXTRA_FOR_PACKAGE)?.trim()?.takeIf { it.isNotEmpty() }
         val domain = intent.getStringExtra(EXTRA_FOR_DOMAIN)?.trim()?.takeIf { it.isNotEmpty() }
         return mapOf(
+            "source" to "keyboard",
             "package" to forPackage,
             "domain" to domain,
             "appLabel" to forPackage?.let { appLabel(activity, it) },
         )
     }
 
-    private fun appLabel(activity: Activity, packageName: String): String? = try {
+    /** The app's name as the launcher shows it, or null when it can't be read. */
+    fun appLabel(activity: Activity, packageName: String): String? = try {
         val manager = activity.packageManager
         manager.getApplicationLabel(manager.getApplicationInfo(packageName, 0))
             .toString().trim().takeIf { it.isNotEmpty() }

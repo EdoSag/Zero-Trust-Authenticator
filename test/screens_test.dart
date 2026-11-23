@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:zero_trust_core/zero_trust_core.dart';
+import 'package:zerotrust_authenticator/app/incoming_links.dart';
 import 'package:zerotrust_authenticator/model/account.dart';
 import 'package:zerotrust_authenticator/otp/otp.dart';
 import 'package:zerotrust_authenticator/otp/otpauth.dart';
@@ -317,6 +318,36 @@ void main() {
     await tester.pumpAndSettle();
     expect([for (final a in repo.accounts) a.id], ['gh']);
     expect(find.text('The trash is empty'), findsOneWidget);
+  });
+
+  testWidgets('account links: asked before adding, one after the other', (
+    tester,
+  ) async {
+    addTearDown(IncomingLinks.takeAccountLinks);
+    await IncomingLinks.handle(
+      'otpauth://totp/Mail:me?secret=GEZDGNBVGY3TQOJQ&issuer=Mail',
+    );
+    await tester.pumpWidget(app(const HomePage()));
+    await tester.pumpAndSettle();
+    expect(find.text('Add this account?'), findsOneWidget);
+    expect(find.textContaining('add Mail to ZT Authenticator'), findsOneWidget);
+    expect(repo.accounts, isEmpty);
+
+    // A second link arrives while the first question is still open.
+    await IncomingLinks.handle(
+      'otpauth://totp/Shop:me?secret=MFRGGZDFMZTWQ2LK&issuer=Shop',
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add'));
+    await tester.pumpAndSettle();
+    expect([for (final a in repo.accounts) a.issuer], ['Mail']);
+
+    // It is asked about next, and saying no adds nothing.
+    expect(find.textContaining('add Shop to ZT Authenticator'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle(const Duration(seconds: 5));
+    expect([for (final a in repo.accounts) a.issuer], ['Mail']);
+    expect(find.text('Add this account?'), findsNothing);
   });
 
   testWidgets('old trash is emptied when the app opens', (tester) async {

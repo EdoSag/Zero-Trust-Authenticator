@@ -3,8 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../links/code_matcher.dart';
 
-/// The phone-side jobs done in Kotlin (`MainActivity`): answering another
-/// Zero-Trust app that asked for a code, and the private clipboard.
+/// Whether this phone can make ZT Authenticator its autofill app, and
+/// whether it is that now.
+class AutofillState {
+  const AutofillState({required this.supported, required this.enabled});
+
+  static const unsupported = AutofillState(supported: false, enabled: false);
+
+  final bool supported;
+  final bool enabled;
+}
+
+/// The phone-side jobs done in Kotlin (`CodeActivity`): answering whoever
+/// asked for a code (ZT Keyboard, or Android autofill), the private
+/// clipboard, and the autofill switch.
 abstract class DeviceBridge {
   /// The code request this screen was opened for, or null when the app was
   /// simply opened. The same request is returned until it is answered.
@@ -17,6 +29,14 @@ abstract class DeviceBridge {
   /// Copies [text] marked as private (Android hides it from the clipboard
   /// preview) and clears it after [clearAfter]; null leaves it.
   Future<void> copyPrivately(String text, {Duration? clearAfter});
+
+  /// Whether Android offers this app's codes on other apps' code fields.
+  Future<AutofillState> autofillState();
+
+  /// On: opens Android's own screen, where the user makes this app the
+  /// phone's autofill app (nothing changes until they do). Off: stops
+  /// being it. Ask [autofillState] again when the app is back in front.
+  Future<void> setAutofill(bool on);
 }
 
 class MethodChannelDeviceBridge implements DeviceBridge {
@@ -34,17 +54,7 @@ class MethodChannelDeviceBridge implements DeviceBridge {
     } on MissingPluginException {
       return null;
     }
-    if (raw == null) return null;
-    String? text(String key) {
-      final v = raw![key];
-      return v is String && v.trim().isNotEmpty ? v.trim() : null;
-    }
-
-    return CodeRequest(
-      package: text('package'),
-      domain: text('domain'),
-      appLabel: text('appLabel'),
-    );
+    return raw == null ? null : CodeRequest.fromDevice(raw);
   }
 
   @override
@@ -65,6 +75,25 @@ class MethodChannelDeviceBridge implements DeviceBridge {
       await Clipboard.setData(ClipboardData(text: text));
     }
   }
+
+  @override
+  Future<AutofillState> autofillState() async {
+    try {
+      final raw = await _channel.invokeMapMethod<Object?, Object?>(
+        'autofillState',
+      );
+      return AutofillState(
+        supported: raw?['supported'] == true,
+        enabled: raw?['enabled'] == true,
+      );
+    } on MissingPluginException {
+      return AutofillState.unsupported;
+    }
+  }
+
+  @override
+  Future<void> setAutofill(bool on) =>
+      _channel.invokeMethod<void>('setAutofill', {'on': on});
 }
 
 final deviceBridgeProvider = Provider<DeviceBridge>(
