@@ -79,6 +79,14 @@ class _AccountTileState extends ConsumerState<AccountTile> {
         ? null
         : (until.difference(now).inMilliseconds / 1000).ceil();
     final ending = secondsLeft != null && secondsLeft <= 5;
+    String? next;
+    if (ending && shown && code.isNotEmpty && until != null) {
+      try {
+        next = _account.codeAt(until.add(const Duration(milliseconds: 1)));
+      } on FormatException {
+        next = null;
+      }
+    }
     final codeColour = ending
         ? theme.colorScheme.error
         : theme.colorScheme.primary;
@@ -145,6 +153,18 @@ class _AccountTileState extends ConsumerState<AccountTile> {
                       fontFeatures: const [FontFeature.tabularFigures()],
                     ),
                   ),
+                  // In a code's last seconds: the one that comes after it,
+                  // so nobody types a code that is about to stop working.
+                  if (next != null)
+                    Text(
+                      // Kept left to right inside a Hebrew sentence.
+                      l.nextCodeIs('\u2066${spacedCode(next)}\u2069'),
+                      key: Key('next-${_account.id}'),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                        fontFeatures: const [FontFeature.tabularFigures()],
+                      ),
+                    ),
                 ],
               ),
             ),

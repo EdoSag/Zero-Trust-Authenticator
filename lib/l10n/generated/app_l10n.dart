@@ -876,6 +876,150 @@ abstract class AppL10n {
   /// In en, this message translates to:
   /// **'This phone doesn\'t let apps fill in fields'**
   String get autofillUnavailable;
+
+  /// No description provided for @groups.
+  ///
+  /// In en, this message translates to:
+  /// **'Groups'**
+  String get groups;
+
+  /// No description provided for @groupsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep work, personal and other accounts apart'**
+  String get groupsHint;
+
+  /// No description provided for @groupsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 group} other{{n} groups}}'**
+  String groupsCount(int n);
+
+  /// No description provided for @groupsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No groups yet. Add one, then press and hold an account to move it in.'**
+  String get groupsEmpty;
+
+  /// No description provided for @newGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'New group'**
+  String get newGroup;
+
+  /// No description provided for @groupName.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get groupName;
+
+  /// No description provided for @renameGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get renameGroup;
+
+  /// No description provided for @deleteGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete group'**
+  String get deleteGroup;
+
+  /// No description provided for @deleteGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String deleteGroupTitle(String name);
+
+  /// No description provided for @deleteGroupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its accounts stay in ZT Authenticator, without a group.'**
+  String get deleteGroupBody;
+
+  /// No description provided for @groupAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{No accounts} =1{1 account} other{{n} accounts}}'**
+  String groupAccounts(int n);
+
+  /// No description provided for @allAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get allAccounts;
+
+  /// No description provided for @moveToGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to group'**
+  String get moveToGroup;
+
+  /// No description provided for @noGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'No group'**
+  String get noGroup;
+
+  /// No description provided for @groupEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts in this group yet'**
+  String get groupEmpty;
+
+  /// No description provided for @editGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit groups'**
+  String get editGroups;
+
+  /// No description provided for @groupNameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'There is already a group with this name'**
+  String get groupNameTaken;
+
+  /// No description provided for @nextCodeIs.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {code}'**
+  String nextCodeIs(String code);
+
+  /// No description provided for @checkClock.
+  ///
+  /// In en, this message translates to:
+  /// **'Check this phone\'s clock'**
+  String get checkClock;
+
+  /// No description provided for @checkClockHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Codes depend on the time. When the clock is off, services refuse them.'**
+  String get checkClockHint;
+
+  /// No description provided for @clockRight.
+  ///
+  /// In en, this message translates to:
+  /// **'The clock is right'**
+  String get clockRight;
+
+  /// No description provided for @clockOff.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone\'s clock is {seconds} seconds off, so services may refuse your codes. Turn on automatic date and time in Android\'s settings.'**
+  String clockOff(int seconds);
+
+  /// No description provided for @clockUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t check the clock. Check your connection and try again.'**
+  String get clockUnknown;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppL10nDelegate extends LocalizationsDelegate<AppL10n> {

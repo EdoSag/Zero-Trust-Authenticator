@@ -22,6 +22,12 @@ abstract class CodeActivity : FlutterFragmentActivity() {
     /** Who a code was asked for, while the asker waits for one. */
     private var codeRequest: Map<String, String?>? = null
 
+    /**
+     * What the home screen widget or a launcher shortcut opened the app
+     * for ("scan"); the Dart side takes it once, after unlocking.
+     */
+    protected var startAction: String? = null
+
     /** Whether this screen was opened to hand a code back. */
     protected abstract fun askedForCode(): Boolean
 
@@ -73,6 +79,10 @@ abstract class CodeActivity : FlutterFragmentActivity() {
                             call.argument<Number>("clearAfterMs")?.toLong(),
                         )
                         result.success(null)
+                    }
+                    "takeStartAction" -> {
+                        result.success(startAction)
+                        startAction = null
                     }
                     "autofillState" -> {
                         val manager = getSystemService(AutofillManager::class.java)

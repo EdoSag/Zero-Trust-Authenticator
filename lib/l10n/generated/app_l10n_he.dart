@@ -466,4 +466,103 @@ class AppL10nHe extends AppL10n {
 
   @override
   String get autofillUnavailable => 'הטלפון הזה לא מאפשר לאפליקציות למלא שדות';
+
+  @override
+  String get groups => 'קבוצות';
+
+  @override
+  String get groupsHint => 'הפרדה בין חשבונות עבודה, אישיים ואחרים';
+
+  @override
+  String groupsCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n קבוצות',
+      one: 'קבוצה אחת',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get groupsEmpty =>
+      'אין עדיין קבוצות. מוסיפים קבוצה, ואז לוחצים לחיצה ארוכה על חשבון כדי להעביר אותו אליה.';
+
+  @override
+  String get newGroup => 'קבוצה חדשה';
+
+  @override
+  String get groupName => 'שם הקבוצה';
+
+  @override
+  String get renameGroup => 'שינוי שם';
+
+  @override
+  String get deleteGroup => 'מחיקת הקבוצה';
+
+  @override
+  String deleteGroupTitle(String name) {
+    return 'למחוק את $name?';
+  }
+
+  @override
+  String get deleteGroupBody =>
+      'החשבונות שבה נשארים ב-ZT Authenticator, בלי קבוצה.';
+
+  @override
+  String groupAccounts(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n חשבונות',
+      one: 'חשבון אחד',
+      zero: 'אין חשבונות',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allAccounts => 'הכול';
+
+  @override
+  String get moveToGroup => 'העברה לקבוצה';
+
+  @override
+  String get noGroup => 'בלי קבוצה';
+
+  @override
+  String get groupEmpty => 'אין עדיין חשבונות בקבוצה הזו';
+
+  @override
+  String get editGroups => 'עריכת קבוצות';
+
+  @override
+  String get groupNameTaken => 'כבר יש קבוצה בשם הזה';
+
+  @override
+  String nextCodeIs(String code) {
+    return 'הבא: $code';
+  }
+
+  @override
+  String get checkClock => 'בדיקת השעון של הטלפון';
+
+  @override
+  String get checkClockHint =>
+      'הקודים תלויים בשעה. כשהשעון לא מדויק, שירותים דוחים אותם.';
+
+  @override
+  String get clockRight => 'השעון מדויק';
+
+  @override
+  String clockOff(int seconds) {
+    return 'השעון של הטלפון סוטה ב-$seconds שניות, ולכן שירותים עלולים לדחות את הקודים. יש להפעיל תאריך ושעה אוטומטיים בהגדרות Android.';
+  }
+
+  @override
+  String get clockUnknown =>
+      'לא ניתן לבדוק את השעון. כדאי לבדוק את החיבור ולנסות שוב.';
+
+  @override
+  String get ok => 'אישור';
 }

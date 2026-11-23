@@ -7,9 +7,11 @@ import 'package:zero_trust_core/zero_trust_core.dart';
 import '../app/authenticator_settings.dart';
 import '../data/accounts_store.dart';
 import '../l10n/l10n.dart';
+import '../platform/clock_check.dart';
 import '../platform/device_bridge.dart';
 import 'adding.dart';
 import 'common.dart';
+import 'groups_page.dart';
 import 'import_page.dart';
 import 'trash_page.dart';
 
@@ -42,7 +44,7 @@ class AuthenticatorSettingsPage extends ConsumerWidget {
 }
 
 /// The Authenticator's own rows: hide codes, clear the clipboard, codes in
-/// other apps (autofill), trash.
+/// other apps (autofill), groups, the clock check, trash.
 class AppSettingsRows extends ConsumerWidget {
   const AppSettingsRows({super.key});
 
@@ -79,6 +81,7 @@ class AppSettingsRows extends ConsumerWidget {
     final l = context.l10n;
     final settings = ref.watch(authenticatorSettingsProvider);
     final trashed = ref.watch(trashedAccountsProvider).length;
+    final groups = ref.watch(groupsProvider).value?.length ?? 0;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -103,6 +106,16 @@ class AppSettingsRows extends ConsumerWidget {
           onTap: () => _pickClipboard(context, ref),
         ),
         const AutofillSettingRow(),
+        ListTile(
+          key: const Key('setting-groups'),
+          leading: const Icon(Icons.folder_outlined),
+          title: Text(l.groups),
+          subtitle: Text(groups == 0 ? l.groupsHint : l.groupsCount(groups)),
+          onTap: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute<void>(builder: (_) => const GroupsPage())),
+        ),
+        const ClockCheckRow(),
         ListTile(
           key: const Key('setting-trash'),
           leading: const Icon(Icons.delete_outline),
@@ -178,6 +191,71 @@ class _AutofillSettingRowState extends ConsumerState<AutofillSettingRow> {
       subtitle: Text(_state.enabled ? l.autofillOnHint : l.autofillOffHint),
       value: _state.enabled,
       onChanged: _set,
+    );
+  }
+}
+
+/// "Check this phone's clock": codes are made from the time, so a clock
+/// that is off is the usual reason a service refuses a code that looks
+/// right.
+class ClockCheckRow extends ConsumerStatefulWidget {
+  const ClockCheckRow({super.key});
+
+  @override
+  ConsumerState<ClockCheckRow> createState() => _ClockCheckRowState();
+}
+
+class _ClockCheckRowState extends ConsumerState<ClockCheckRow> {
+  bool _checking = false;
+
+  Future<void> _check() async {
+    if (_checking) return;
+    setState(() => _checking = true);
+    Duration? offset;
+    try {
+      offset = await ref.read(clockCheckProvider)();
+    } on Object {
+      offset = null;
+    }
+    if (!mounted) return;
+    setState(() => _checking = false);
+    final l = context.l10n;
+    final String message;
+    if (offset == null) {
+      message = l.clockUnknown;
+    } else if (offset.abs() < clockTolerance) {
+      message = l.clockRight;
+    } else {
+      message = l.clockOff(offset.abs().inSeconds);
+    }
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        key: const Key('clock-result'),
+        content: Text(message),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(l.ok)),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    return ListTile(
+      key: const Key('setting-clock'),
+      leading: const Icon(Icons.schedule),
+      title: Text(l.checkClock),
+      subtitle: Text(l.checkClockHint),
+      trailing: _checking
+          ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : null,
+      onTap: _check,
     );
   }
 }

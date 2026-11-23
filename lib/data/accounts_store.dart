@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:zero_trust_core/zero_trust_core.dart';
@@ -68,16 +69,17 @@ final trashedAccountsProvider = Provider<List<Account>>(
   ],
 );
 
+/// Groups in the order the user gave them, then by name.
+int compareGroups(AccountGroup a, AccountGroup b) {
+  final byOrder = a.order.compareTo(b.order);
+  return byOrder != 0
+      ? byOrder
+      : a.name.toLowerCase().compareTo(b.name.toLowerCase());
+}
+
 final groupsProvider = StreamProvider<List<AccountGroup>>(
-  (ref) => _watch(ref, groupsCollection).map(
-    (l) => [...l]
-      ..sort((a, b) {
-        final byOrder = a.order.compareTo(b.order);
-        return byOrder != 0
-            ? byOrder
-            : a.name.toLowerCase().compareTo(b.name.toLowerCase());
-      }),
-  ),
+  (ref) =>
+      _watch(ref, groupsCollection).map((l) => [...l]..sort(compareGroups)),
 );
 
 /// The time, once a second, for the codes and their countdowns.
@@ -129,13 +131,44 @@ class AccountsRepository {
   Future<void> saveGroup(AccountGroup group) async =>
       groupsCollection.save(_sync, await _store, group);
 
+  /// Makes a group called [name], after the others.
+  Future<AccountGroup> addGroup(String name) async {
+    final groups = await allGroups();
+    final group = AccountGroup(
+      id: newId(),
+      name: name.trim(),
+      order: groups.fold<int>(0, (m, g) => g.order > m ? g.order : m) + 1,
+    );
+    await saveGroup(group);
+    return group;
+  }
+
+  /// Saves the groups in the order of [ids].
+  Future<void> reorderGroups(List<String> ids) async {
+    final byId = {for (final g in await allGroups()) g.id: g};
+    for (var i = 0; i < ids.length; i++) {
+      final g = byId[ids[i]];
+      if (g != null && g.order != i + 1) {
+        await saveGroup(g.copyWith(order: i + 1));
+      }
+    }
+  }
+
+  /// Puts [account] in the group [groupId]; null takes it out of its group.
+  Future<void> moveToGroup(Account account, String? groupId) =>
+      save(account.copyWith(groupId: () => groupId));
+
   /// Deletes the group; its accounts stay, ungrouped.
   Future<void> deleteGroup(String id) async {
     for (final a in await allAccounts()) {
       if (a.groupId == id) await save(a.copyWith(groupId: () => null));
     }
-    await groupsCollection.delete(_sync, id);
+    await removeGroup(id);
   }
+
+  /// Removes the group itself, nothing else. Use [deleteGroup].
+  @protected
+  Future<void> removeGroup(String id) => groupsCollection.delete(_sync, id);
 
   /// Whether [a] and [b] make the same codes.
   static bool sameKey(Account a, Account b) =>

@@ -470,4 +470,103 @@ class AppL10nEn extends AppL10n {
   @override
   String get autofillUnavailable =>
       'This phone doesn\'t let apps fill in fields';
+
+  @override
+  String get groups => 'Groups';
+
+  @override
+  String get groupsHint => 'Keep work, personal and other accounts apart';
+
+  @override
+  String groupsCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n groups',
+      one: '1 group',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get groupsEmpty =>
+      'No groups yet. Add one, then press and hold an account to move it in.';
+
+  @override
+  String get newGroup => 'New group';
+
+  @override
+  String get groupName => 'Group name';
+
+  @override
+  String get renameGroup => 'Rename';
+
+  @override
+  String get deleteGroup => 'Delete group';
+
+  @override
+  String deleteGroupTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get deleteGroupBody =>
+      'Its accounts stay in ZT Authenticator, without a group.';
+
+  @override
+  String groupAccounts(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n accounts',
+      one: '1 account',
+      zero: 'No accounts',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allAccounts => 'All';
+
+  @override
+  String get moveToGroup => 'Move to group';
+
+  @override
+  String get noGroup => 'No group';
+
+  @override
+  String get groupEmpty => 'No accounts in this group yet';
+
+  @override
+  String get editGroups => 'Edit groups';
+
+  @override
+  String get groupNameTaken => 'There is already a group with this name';
+
+  @override
+  String nextCodeIs(String code) {
+    return 'Next: $code';
+  }
+
+  @override
+  String get checkClock => 'Check this phone\'s clock';
+
+  @override
+  String get checkClockHint =>
+      'Codes depend on the time. When the clock is off, services refuse them.';
+
+  @override
+  String get clockRight => 'The clock is right';
+
+  @override
+  String clockOff(int seconds) {
+    return 'This phone\'s clock is $seconds seconds off, so services may refuse your codes. Turn on automatic date and time in Android\'s settings.';
+  }
+
+  @override
+  String get clockUnknown =>
+      'Couldn\'t check the clock. Check your connection and try again.';
+
+  @override
+  String get ok => 'OK';
 }

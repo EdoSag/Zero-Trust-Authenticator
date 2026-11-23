@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Texts Android itself shows (the autofill suggestion), in the phone's language. -->
+<!-- Texts Android itself shows (the autofill suggestion, the home screen
+     widget, the launcher shortcut), in the phone's language. -->
 <resources>
     <string name="autofill_code_title">Code from ZT Authenticator</string>
+    <string name="widget_codes_app" translatable="false">ZT Authenticator</string>
+    <string name="widget_codes_title">Your codes</string>
+    <string name="widget_codes_caption">Shown after unlocking</string>
+    <string name="widget_codes_open">Open your codes</string>
+    <string name="widget_codes_scan">Scan a QR code</string>
+    <string name="widget_codes_description">Opens your codes, or the scanner to add an account. Nothing about your accounts shows on the home screen.</string>
+    <string name="shortcut_scan_short">Scan QR code</string>
+    <string name="shortcut_scan_long">Scan a QR code to add an account</string>
 </resources>

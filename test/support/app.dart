@@ -9,6 +9,7 @@ import 'package:zerotrust_authenticator/data/accounts_store.dart';
 import 'package:zerotrust_authenticator/l10n/l10n.dart';
 import 'package:zerotrust_authenticator/links/code_matcher.dart';
 import 'package:zerotrust_authenticator/model/account.dart';
+import 'package:zerotrust_authenticator/platform/clock_check.dart';
 import 'package:zerotrust_authenticator/platform/device_bridge.dart';
 import 'package:zerotrust_authenticator/platform/files.dart';
 import 'package:zerotrust_authenticator/transfer/backup_file.dart';
@@ -44,7 +45,8 @@ class MemoryRepository extends AccountsRepository {
 
   Stream<List<Account>> watchAccounts() =>
       _watch(() => accounts..sort(compareAccounts));
-  Stream<List<AccountGroup>> watchGroups() => _watch(() => groups);
+  Stream<List<AccountGroup>> watchGroups() =>
+      _watch(() => groups..sort(compareGroups));
 
   @override
   Future<List<Account>> allAccounts() async => accounts;
@@ -70,7 +72,7 @@ class MemoryRepository extends AccountsRepository {
   }
 
   @override
-  Future<void> deleteGroup(String id) async {
+  Future<void> removeGroup(String id) async {
     _groups.remove(id);
     _changes.add(null);
   }
@@ -110,6 +112,16 @@ class FakeBridge implements DeviceBridge {
 
   /// Makes `setAutofill` fail, as on a phone without the settings screen.
   bool autofillFails = false;
+
+  /// What the widget or shortcut opened the app for; taken once.
+  String? startAction;
+
+  @override
+  Future<String?> takeStartAction() async {
+    final action = startAction;
+    startAction = null;
+    return action;
+  }
 
   @override
   Future<AutofillState> autofillState() async => autofill;
@@ -151,6 +163,7 @@ Widget app(
   Locale locale = ZtLanguages.english,
   CodeRequest? request,
   PreferencesStore? prefs,
+  ClockCheck? clockCheck,
 }) {
   bridge = FakeBridge(request: request);
   files = FakeFiles();
@@ -162,6 +175,8 @@ Widget app(
       ),
       deviceBridgeProvider.overrideWithValue(bridge),
       filesProvider.overrideWithValue(files),
+      // Never the real server from a test.
+      clockCheckProvider.overrideWithValue(clockCheck ?? () async => null),
       clockProvider.overrideWith((ref) => Stream.value(testNow)),
       accountsRepositoryProvider.overrideWith(
         (ref) => repo = MemoryRepository(ref, accounts: accounts),

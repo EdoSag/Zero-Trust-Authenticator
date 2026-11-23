@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Press and hold the app's icon: "Scan QR code" opens the scanner (after
+     unlocking) to add an account. -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="scan"
+        android:enabled="true"
+        android:icon="@drawable/ic_zt_widget_qr"
+        android:shortcutShortLabel="@string/shortcut_scan_short"
+        android:shortcutLongLabel="@string/shortcut_scan_long">
+        <intent
+            android:action="dev.sagron.zerotrustauthenticator.action.SCAN"
+            android:targetPackage="dev.sagron.zerotrustauthenticator"
+            android:targetClass="dev.sagron.zerotrustauthenticator.MainActivity"/>
+    </shortcut>
+</shortcuts>
